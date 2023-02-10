@@ -1,0 +1,12 @@
+TextReader tr = new StreamReader(Application.StartupPath + "./connection.txt");
+            string constr = tr.ReadLine();
+            OracleConnection con = new OracleConnection(constr);
+            con.Open();
+            if (con.State == ConnectionState.Open)
+            {
+                MessageBox.Show("you are connected !!");
+            }
+            else
+            {
+                MessageBox.Show("youre ofline !!");
+            }
