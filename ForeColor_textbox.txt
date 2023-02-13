@@ -1,0 +1,23 @@
+private void Pri_Leave(object sender, EventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            foreach (Control ctrl in pContain.Controls)
+            {
+                if (ctrl is Panel && ctrl.Name == "p" + txt.Name)
+                {
+                    ctrl.BackColor = Color.LightSlateGray;
+                }
+            }
+        }
+
+        private void Pri_Enter(object sender, EventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            foreach (Control ctrl in pContain.Controls)
+            {
+                if (ctrl is Panel && ctrl.Name == "p" + txt.Name)
+                {
+                    ctrl.BackColor = Color.DodgerBlue;
+                }
+            }
+        }

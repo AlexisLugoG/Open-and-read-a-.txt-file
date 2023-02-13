@@ -1,0 +1,101 @@
+using System;
+using System.Data.OracleClient;
+using System.Windows.Forms;
+using System.IO;
+using System.Data;
+
+namespace Type_Approval
+{
+    class Connection
+    {
+        public OracleConnection conn = new OracleConnection(Get_Connection_String());        
+        
+        public void conect()
+        {
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+        }
+
+        public void disconect()
+        {
+            if (conn.State == ConnectionState.Open)
+            {
+                conn.Close();
+            }
+        }
+
+        private static string Get_Connection_String()
+        {
+            string basepath = Application.StartupPath;
+            string txtpath = basepath + @"./connection.txt";
+            string connectStirng = "";
+
+            try
+            {
+                if (File.Exists(txtpath))
+                {
+                    using (StreamReader sr = new StreamReader(txtpath))
+                    {
+                        while (sr.Peek() >= 0)
+                        {
+                            string ss = sr.ReadLine();
+                            string[] txtsplit = ss.Split(';');
+
+                            //now loop through the array
+                            string server = txtsplit[0].ToString();//Data Source=IFACTJUP
+                            string database = txtsplit[1].ToString();//Persist Security Info=True
+                            string userid = txtsplit[2].ToString();//User ID=JUP1QMM
+                            string password = txtsplit[3].ToString();//Password=QMM$elcaro"
+                            connectStirng = server + ";" + database + ";" + userid + ";" + password;
+                            Console.WriteLine("conec: " + connectStirng);
+                            //Data Source=IFACTJUP;Persist Security Info=True;User ID=JUP1QMM;Password=QMM$elcaro"
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return connectStirng;
+        }
+
+        private void fet_Connection_String()
+        {
+            string basepath = Application.StartupPath;
+            string txtpath = basepath + @"./connection.txt";
+            string connectStirng = "";
+
+            try
+            {
+                if (File.Exists(txtpath))
+                {
+                    using (StreamReader sr = new StreamReader(txtpath))
+                    {
+                        while (sr.Peek() >= 0)
+                        {
+                            string ss = sr.ReadLine();
+                            string[] txtsplit = ss.Split(';');
+
+                            //now loop through the array
+                            string server = txtsplit[0].ToString();//Data Source=IFACTJUP
+                            string database = txtsplit[1].ToString();//Persist Security Info=True
+                            string userid = txtsplit[2].ToString();//User ID=JUP1QMM
+                            string password = txtsplit[3].ToString();//Password=QMM$elcaro"
+                            connectStirng = server + ";" + database + ";" + userid + ";" + password;
+                            Console.WriteLine("conec: " + connectStirng);
+                            //Data Source=IFACTJUP;Persist Security Info=True;User ID=JUP1QMM;Password=QMM$elcaro"
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+    }
+}
+
